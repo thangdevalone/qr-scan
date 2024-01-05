@@ -1,15 +1,250 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>QR Code Scanner</title>
+    <meta charset="utf-8">
+    <title>jsQR Demo</title>
     <script src="./jsQR.js"></script>
-    <!-- Include your custom JavaScript file -->
+    <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow: hidden;
+        }
+
+        h1 {
+            margin: 10px 0;
+            font-size: 40px;
+        }
+
+        #loadingMessage {
+            text-align: center;
+            padding: 40px;
+            background-color: #eee;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #canvas-video {
+            display: block;
+            width: 100%;
+            height: 100%;
+
+        }
+
+        #output {
+            margin-top: 20px;
+            background: #eee;
+            padding: 10px;
+            padding-bottom: 0;
+        }
+
+        #output div {
+            padding-bottom: 10px;
+            word-wrap: break-word;
+        }
+
+        .rounded-box {
+            position: absolute;
+            z-index: 2;
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(168, 94, 242, 0.3);
+            border-radius: 10px;
+            /* Adjust the border-radius value to control the roundness of the corners */
+            color: #fff;
+            text-align: center;
+        }
+
+        .box-demo {
+            position: absolute;
+            z-index: 2;
+            top: 50%;
+            left: 50%;
+            width: 70%;
+            aspect-ratio: 1;
+            transform: translate(-50%, -50%);
+            background-color: rgba(168, 94, 242, 0.3);
+            border-radius: 10px;
+            /* Adjust the border-radius value to control the roundness of the corners */
+            color: #fff;
+            text-align: center;
+        }
+
+        .rounded-box #top-left {
+            position: absolute;
+            transform: rotate(180deg);
+            top: -3px;
+            left: -3px;
+        }
+
+        .rounded-box #top-right {
+            position: absolute;
+            transform: rotate(-90deg);
+            top: -3px;
+            right: -3px;
+        }
+
+        .rounded-box #bottom-left {
+            position: absolute;
+            transform: rotate(90deg);
+            bottom: -3px;
+            left: -3px;
+        }
+
+        .rounded-box #bottom-right {
+            position: absolute;
+            bottom: -3px;
+            right: -3px;
+        }
+
+        #video {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>QR Code Scanner</h1>
-    <video id="video" width="1080" height="1920" ></video>
-    <canvas id="canvas" width="1080" height="1920"></canvas>
-    <script src="./qrScanner.js"></script>
+    <div id="loadingMessage">🎥 Unable to access video stream (please make sure you have a webcam enabled)</div>
+
+    <div class="canvas-video">
+        <canvas id="canvas" hidden></canvas>
+        <div class="box-detect">
+
+        </div>
+        <div class="rounded-box">
+            <div id="top-left">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    width="25px" height="25px" viewBox="-0.5 -0.5 25 25"
+                    content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2024-01-03T09:54:44.394Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; version=&quot;22.1.16&quot; etag=&quot;CXY5nH1L6mss1QCl7E05&quot; type=&quot;device&quot;&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;AJd0RyP9jobj8W_ESHMF&quot;&gt;jVPBUoMwEP0a7kBQ26NiqxdnnOnBc4askGnIMiG0xa83NAkhRR05MHkvu293H0tCyvbyomjXvCEDkeQpuyTkOcnz7ca8JjxaXGwtrhVnlskCceBf4MjUsQNn0EeBGlFo3sVkhVJCpSOOKoXnOOwTRVy1ozWsiENFxZr94Ew3lt3kD4F/BV43vnJ27+ZrqQ92k/QNZXheUGSXkFIhantqLyWIyTnvi83b/3I7N6ZA6v8k5DbhRMXgZnN96dEPC5I9Tp4ZJFEa8qnRrTAoM0eFg2TAHOq1wuNsSWGYalCn63U6X5coUF2lyd48hJgbWxTYyvYwRza7Y3YKsAWtRhNyDv7fOU+bhfWeUyCo5qdYnro1qGe5ucI7clM4T92+Fv57uX0lfhO9RI+DqsBlLf2+FSpioXx7I6SpqkGvhMwXoOMirJsC+j8aLn5u2MmZg1X0aOFpoK674mHYSRsefmuy+wY=&lt;/diagram&gt;&lt;/mxfile&gt;">
+                    <defs />
+                    <g>
+                        <path d="M 2 22 L 12 22 Q 22 22 22 12 L 22 2" fill="none" stroke="#ffff33" stroke-width="4"
+                            stroke-miterlimit="10" pointer-events="stroke" />
+                    </g>
+                </svg>
+            </div>
+            <div id="top-right">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    width="25px" height="25px" viewBox="-0.5 -0.5 25 25"
+                    content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2024-01-03T09:54:44.394Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; version=&quot;22.1.16&quot; etag=&quot;CXY5nH1L6mss1QCl7E05&quot; type=&quot;device&quot;&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;AJd0RyP9jobj8W_ESHMF&quot;&gt;jVPBUoMwEP0a7kBQ26NiqxdnnOnBc4askGnIMiG0xa83NAkhRR05MHkvu293H0tCyvbyomjXvCEDkeQpuyTkOcnz7ca8JjxaXGwtrhVnlskCceBf4MjUsQNn0EeBGlFo3sVkhVJCpSOOKoXnOOwTRVy1ozWsiENFxZr94Ew3lt3kD4F/BV43vnJ27+ZrqQ92k/QNZXheUGSXkFIhantqLyWIyTnvi83b/3I7N6ZA6v8k5DbhRMXgZnN96dEPC5I9Tp4ZJFEa8qnRrTAoM0eFg2TAHOq1wuNsSWGYalCn63U6X5coUF2lyd48hJgbWxTYyvYwRza7Y3YKsAWtRhNyDv7fOU+bhfWeUyCo5qdYnro1qGe5ucI7clM4T92+Fv57uX0lfhO9RI+DqsBlLf2+FSpioXx7I6SpqkGvhMwXoOMirJsC+j8aLn5u2MmZg1X0aOFpoK674mHYSRsefmuy+wY=&lt;/diagram&gt;&lt;/mxfile&gt;">
+                    <defs />
+                    <g>
+                        <path d="M 2 22 L 12 22 Q 22 22 22 12 L 22 2" fill="none" stroke="#ffff33" stroke-width="4"
+                            stroke-miterlimit="10" pointer-events="stroke" />
+                    </g>
+                </svg>
+            </div>
+            <div id="bottom-left">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    width="25px" height="25px" viewBox="-0.5 -0.5 25 25"
+                    content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2024-01-03T09:54:44.394Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; version=&quot;22.1.16&quot; etag=&quot;CXY5nH1L6mss1QCl7E05&quot; type=&quot;device&quot;&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;AJd0RyP9jobj8W_ESHMF&quot;&gt;jVPBUoMwEP0a7kBQ26NiqxdnnOnBc4askGnIMiG0xa83NAkhRR05MHkvu293H0tCyvbyomjXvCEDkeQpuyTkOcnz7ca8JjxaXGwtrhVnlskCceBf4MjUsQNn0EeBGlFo3sVkhVJCpSOOKoXnOOwTRVy1ozWsiENFxZr94Ew3lt3kD4F/BV43vnJ27+ZrqQ92k/QNZXheUGSXkFIhantqLyWIyTnvi83b/3I7N6ZA6v8k5DbhRMXgZnN96dEPC5I9Tp4ZJFEa8qnRrTAoM0eFg2TAHOq1wuNsSWGYalCn63U6X5coUF2lyd48hJgbWxTYyvYwRza7Y3YKsAWtRhNyDv7fOU+bhfWeUyCo5qdYnro1qGe5ucI7clM4T92+Fv57uX0lfhO9RI+DqsBlLf2+FSpioXx7I6SpqkGvhMwXoOMirJsC+j8aLn5u2MmZg1X0aOFpoK674mHYSRsefmuy+wY=&lt;/diagram&gt;&lt;/mxfile&gt;">
+                    <defs />
+                    <g>
+                        <path d="M 2 22 L 12 22 Q 22 22 22 12 L 22 2" fill="none" stroke="#ffff33" stroke-width="4"
+                            stroke-miterlimit="10" pointer-events="stroke" />
+                    </g>
+                </svg>
+            </div>
+            <div id="bottom-right">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                    width="25px" height="25px" viewBox="-0.5 -0.5 25 25"
+                    content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2024-01-03T09:54:44.394Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; version=&quot;22.1.16&quot; etag=&quot;CXY5nH1L6mss1QCl7E05&quot; type=&quot;device&quot;&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;AJd0RyP9jobj8W_ESHMF&quot;&gt;jVPBUoMwEP0a7kBQ26NiqxdnnOnBc4askGnIMiG0xa83NAkhRR05MHkvu293H0tCyvbyomjXvCEDkeQpuyTkOcnz7ca8JjxaXGwtrhVnlskCceBf4MjUsQNn0EeBGlFo3sVkhVJCpSOOKoXnOOwTRVy1ozWsiENFxZr94Ew3lt3kD4F/BV43vnJ27+ZrqQ92k/QNZXheUGSXkFIhantqLyWIyTnvi83b/3I7N6ZA6v8k5DbhRMXgZnN96dEPC5I9Tp4ZJFEa8qnRrTAoM0eFg2TAHOq1wuNsSWGYalCn63U6X5coUF2lyd48hJgbWxTYyvYwRza7Y3YKsAWtRhNyDv7fOU+bhfWeUyCo5qdYnro1qGe5ucI7clM4T92+Fv57uX0lfhO9RI+DqsBlLf2+FSpioXx7I6SpqkGvhMwXoOMirJsC+j8aLn5u2MmZg1X0aOFpoK674mHYSRsefmuy+wY=&lt;/diagram&gt;&lt;/mxfile&gt;">
+                    <defs />
+                    <g>
+                        <path d="M 2 22 L 12 22 Q 22 22 22 12 L 22 2" fill="none" stroke="#ffff33" stroke-width="4"
+                            stroke-miterlimit="10" pointer-events="stroke" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <div id="output" hidden>
+        <div id="outputMessage">No QR code detected.</div>
+        <div hidden><b>Data:</b> <span id="outputData"></span></div>
+    </div>
+    <script>
+        var video = document.createElement("video");
+        video.setAttribute("id", "canvas-video");
+        var canvasElement = document.getElementById("canvas");
+        var canvas = canvasElement.getContext("2d");
+        var loadingMessage = document.getElementById("loadingMessage");
+        var outputContainer = document.getElementById("output");
+        var outputMessage = document.getElementById("outputMessage");
+        var outputData = document.getElementById("outputData");
+
+        function drawLine(begin, end, color) {
+            canvas.beginPath();
+            canvas.moveTo(begin.x, begin.y);
+            canvas.lineTo(end.x, end.y);
+            canvas.lineWidth = 4;
+            canvas.strokeStyle = color;
+            canvas.stroke();
+        }
+
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                facingMode: "environment", 
+                width: { ideal: 1920 },
+                height: { ideal: 1080 },
+                frameRate: { ideal: 60 }
+            }
+        }).then(function (stream) {
+            video.srcObject = stream;
+            video.setAttribute("playsinline", true);
+            video.play();
+            requestAnimationFrame(tick);
+        }).catch(function (error) {
+            console.log("Something went wrong");
+        });
+
+
+        // Use facingMode: environment to attempt to get the front camera on phones
+
+
+        function tick() {
+            loadingMessage.innerText = "⌛ Loading video..."
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                loadingMessage.hidden = true;
+                canvasElement.hidden = false;
+                outputContainer.hidden = false;
+
+                canvasElement.height = video.videoHeight;
+                canvasElement.width = video.videoWidth;
+                canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+                var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+                var code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: "dontInvert",
+                });
+
+                if (code) {
+                    drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+                    drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+                    drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+                    drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
+                    outputMessage.hidden = true;
+                    outputData.parentElement.hidden = false;
+                    outputData.innerText = code.data;
+                } else {
+                    outputMessage.hidden = false;
+                    outputData.parentElement.hidden = true;
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+    </script>
 </body>
+
 </html>
