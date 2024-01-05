@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="scanner-container">
+    <div>
         <div class="scan">
             <p class="text-demo">Hướng camera về phía mã QR</p>
 
@@ -90,8 +90,8 @@
                     </svg>
                 </div>
             </div>
-            <div class="box-detect">
-                <svg width="90%" height="90%" viewBox="0 0 174 166" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- <div class="box-detect">
+                <svg width="174" height="166" viewBox="0 0 174 166" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect x="11" y="10" width="151" height="146" rx="10" fill="#2137FC" fill-opacity="0.15" />
                     <path d="M140 10.0849H151.535C157.286 10.0849 161.948 14.3693 161.948 19.6543V30.2548"
                         stroke="#BEFF03" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
@@ -103,11 +103,10 @@
                         stroke="#BEFF03" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
 
-            </div>
+            </div> -->
             <video id="video"  playsinline></video>
             <canvas id="canvas" style="display: none;" ></canvas>
         </div>
-        <div id="result">QR Code Result: <span id="qr-result"></span></div>
     </div>
     <script src="./qr-scanner.js"></script>
 </body>
