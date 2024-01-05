@@ -13,7 +13,7 @@ body, html {
 .scan{
   position: relative;
 }
-.scan .box-demo{
+.box-demo{
   position: absolute;
   z-index: 200;
   top: 50%;
@@ -25,7 +25,19 @@ body, html {
   border-radius: 10px;
   /* Adjust the border-radius value to control the roundness of the corners */
   color: #fff;
+  animation: zoom 0.7s ease-in infinite;
   text-align: center;
+}
+@keyframes zoom{
+  0%{
+    transform:translate(-50%, -50%) scale(1);
+  }
+  50%{
+    transform:translate(-50%, -50%) scale(1.05);
+  }
+  100%{
+    transform:translate(-50%, -50%)  scale(1);
+  }
 }
 .scan .box-detect{
   position: absolute;
@@ -35,28 +47,32 @@ body, html {
   transform: translate(-50%, -50%);
 
 }
-.box-demo #top-left {
-  position: absolute;
-  transform: rotate(180deg);
-  top: -3px;
-  left: -3px;
-}
+
 .text-demo{
   color:#fff;
   position: absolute;
   top: 10%;
   width: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 16px;
+  text-align: center;
+  z-index: 10;
+  font-size: 18px;
   
 }
-
+.box-demo #top-left {
+  position: absolute;
+  transform: rotate(180deg);
+  top: -3px;
+  z-index: 10;
+  left: -3px;
+}
 .box-demo #top-right {
+  
   position: absolute;
   transform: rotate(-90deg);
   top: -3px;
   right: -3px;
+  z-index: 10;
+
 }
 
 .box-demo #bottom-left {
@@ -64,12 +80,16 @@ body, html {
   transform: rotate(90deg);
   bottom: -3px;
   left: -3px;
+  z-index: 10;
+  
 }
 
 .box-demo #bottom-right {
   position: absolute;
   bottom: -3px;
   right: -3px;
+  z-index: 10;
+
 }
 .scanner-container {
   max-width: 100%;
@@ -77,6 +97,7 @@ body, html {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   background: #fff;
   text-align: center;
+  
 }
 
 #video {

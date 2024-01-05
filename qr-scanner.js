@@ -22,8 +22,9 @@ navigator.mediaDevices.getUserMedia({
 
 function scanFrame() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        canvas.height = window.width;
-        canvas.width = window.height;
+        canvas.height = window.innerWidth;
+        canvas.width = window.innerHeight;
+
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const code = jsQR(imageData.data, imageData.width, imageData.height);
@@ -38,7 +39,7 @@ function scanFrame() {
             console.log(points)
             const { topLeft, topRight, bottomLeft, bottomRight, width, height }=findTopLeftCornerAndDimensions(points)
             console.log(topLeft)
-            requestAnimationFrame()
+        
             drawRectangle(topLeft, width, height);
             function drawRectangle(topLeft, width, height) {
                 ctx.beginPath();
@@ -48,7 +49,7 @@ function scanFrame() {
                 ctx.fill();
                 ctx.globalAlpha = 1.0; // Đặt lại độ trong suốt để không ảnh hưởng đến các vẽ sau
             }
-            qrResult.textContent = code.data;
+            alert(code.data)
         }
     }
     requestAnimationFrame(scanFrame);
