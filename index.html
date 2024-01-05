@@ -12,7 +12,9 @@
             box-sizing: border-box;
         }
 
-        body {}
+        body {
+            overflow: hidden;
+        }
 
         h1 {
             margin: 10px 0;
@@ -26,12 +28,15 @@
         }
 
         #canvas {
-            width: 100vw;
-            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         #canvas-video {
-            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
 
         }
 
@@ -172,7 +177,7 @@
     </div>
     <script>
         var video = document.createElement("video");
-        video.setAttribute("id", "video");
+        video.setAttribute("id", "canvas-video");
         var canvasElement = document.getElementById("canvas");
         var canvas = canvasElement.getContext("2d");
         var loadingMessage = document.getElementById("loadingMessage");
