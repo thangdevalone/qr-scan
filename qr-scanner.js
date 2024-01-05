@@ -4,7 +4,8 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
 const qrResult = document.getElementById('qr-result');
 
-navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment",width: { ideal: 1280 }, 
+height: { ideal: 720 },  } })
     .then(function(stream) {
         video.srcObject = stream;
         video.play();
@@ -23,6 +24,7 @@ function scanFrame() {
         const code = jsQR(imageData.data, imageData.width, imageData.height);
 
         if (code) {
+            console.log(code)
             qrResult.textContent = code.data;
         } else {
             qrResult.textContent = 'No QR code detected';
