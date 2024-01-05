@@ -22,9 +22,8 @@ navigator.mediaDevices.getUserMedia({
 
 function scanFrame() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        canvas.height = video.videoHeight;
-        canvas.width = video.videoWidth;
-        alert(canvas.height,canvas.width,window.width,window.height)
+        canvas.height = window.width;
+        canvas.width = window.height;
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const code = jsQR(imageData.data, imageData.width, imageData.height);
@@ -40,7 +39,7 @@ function scanFrame() {
             const { topLeft, topRight, bottomLeft, bottomRight, width, height }=findTopLeftCornerAndDimensions(points)
             console.log(topLeft)
             requestAnimationFrame()
-            // drawRectangle(topLeft, width, height);
+            drawRectangle(topLeft, width, height);
             function drawRectangle(topLeft, width, height) {
                 ctx.beginPath();
                 ctx.rect(topLeft.x, topLeft.y, width, height);
