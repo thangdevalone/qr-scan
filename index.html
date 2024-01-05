@@ -197,9 +197,7 @@
         navigator.mediaDevices.getUserMedia({
             video: {
                 facingMode: "environment", 
-                width: { ideal: 1920 },
-                height: { ideal: 1080 },
-                frameRate: 60
+              
             }
         }).then(function (stream) {
             video.srcObject = stream;
