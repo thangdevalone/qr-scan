@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Mobile QR Code Scanner</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,133 @@
     <script src="./jsQR.js"></script>
 
 </head>
+
 <body>
     <div class="scanner-container">
-        <video id="video" playsinline></video>
-        <canvas id="canvas" style="display: none;"></canvas>
+        <div class="scan">
+            <div class="box-demo">
+                <p class="text-demo">Hướng camera về phía mã QR</p>
+                <div id="top-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        width="25px" height="25px" viewBox="-0.5 -0.5 25 25" class="ge-export-svg-dark"
+                        content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2024-01-05T11:50:53.509Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; version=&quot;22.1.16&quot; etag=&quot;_dONiFMjpjDE0n6rPZAn&quot; type=&quot;device&quot;&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;-YO9qan98xHfY2sqnPQi&quot;&gt;jVNNU4MwEP013IG02h4Vq16ccaYHzxmyQqYhy4TQFn+9gSSEFHXsoZP3dvftJwkpmuuLom39hgxEkqfsmpCnJM/3xPyNeLB4s7O4UpxZJgvEkX+BI1PH9pxBFzlqRKF5G5MlSgmljjiqFF5it08UcdaWVrAijiUVa/aDM11bdpffB/4VeFX7zNnd3loa6p1dJ11NGV4WFDkkpFCI2r6aawFinJyfi417/sU6F6ZA6v8E5DbgTEXvenN16cE3C5I9jDMzSKI05GOtG2FQZp4Ke8mAOdRphad5JBvDlL06T+Z0NhcoUE3SJJ1+xoItLbkej2E3QlsDsNUWQlvZPCxzYoANaDUYl0tYx9aNuF5swnMKBNX8HMtTdxXVLDdneEduEuepO98NcTrufIk/TC/RYa9KcFHL8d8KbWOhfH8jpKmqQK+EzELosHBrR4fuj4K3Pxfs5MzDKnq0mGmgptPxMJyodQ9fOTl8Aw==&lt;/diagram&gt;&lt;/mxfile&gt;">
+                        <defs>
+                            <style type="text/css">
+                                svg.ge-export-svg-dark &gt;
+
+                                * {
+                                    filter: invert(100%) hue-rotate(180deg);
+                                }
+
+                                &#xa;
+
+                                svg.ge-export-svg-dark image {
+                                    filter: invert(100%) hue-rotate(180deg)
+                                }
+                            </style>
+                        </defs>
+                        <g>
+                            <path d="M 2 22 L 12 22 Q 22 22 22 12 L 22 2" fill="none" stroke="#000000"
+                                stroke-opacity="0.8" stroke-width="4" stroke-miterlimit="10" pointer-events="stroke" />
+                        </g>
+                    </svg>
+                </div>
+                <div id="top-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        width="25px" height="25px" viewBox="-0.5 -0.5 25 25" class="ge-export-svg-dark"
+                        content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2024-01-05T11:50:53.509Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; version=&quot;22.1.16&quot; etag=&quot;_dONiFMjpjDE0n6rPZAn&quot; type=&quot;device&quot;&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;-YO9qan98xHfY2sqnPQi&quot;&gt;jVNNU4MwEP013IG02h4Vq16ccaYHzxmyQqYhy4TQFn+9gSSEFHXsoZP3dvftJwkpmuuLom39hgxEkqfsmpCnJM/3xPyNeLB4s7O4UpxZJgvEkX+BI1PH9pxBFzlqRKF5G5MlSgmljjiqFF5it08UcdaWVrAijiUVa/aDM11bdpffB/4VeFX7zNnd3loa6p1dJ11NGV4WFDkkpFCI2r6aawFinJyfi417/sU6F6ZA6v8E5DbgTEXvenN16cE3C5I9jDMzSKI05GOtG2FQZp4Ke8mAOdRphad5JBvDlL06T+Z0NhcoUE3SJJ1+xoItLbkej2E3QlsDsNUWQlvZPCxzYoANaDUYl0tYx9aNuF5swnMKBNX8HMtTdxXVLDdneEduEuepO98NcTrufIk/TC/RYa9KcFHL8d8KbWOhfH8jpKmqQK+EzELosHBrR4fuj4K3Pxfs5MzDKnq0mGmgptPxMJyodQ9fOTl8Aw==&lt;/diagram&gt;&lt;/mxfile&gt;">
+                        <defs>
+                            <style type="text/css">
+                                svg.ge-export-svg-dark &gt;
+
+                                * {
+                                    filter: invert(100%) hue-rotate(180deg);
+                                }
+
+                                &#xa;
+
+                                svg.ge-export-svg-dark image {
+                                    filter: invert(100%) hue-rotate(180deg)
+                                }
+                            </style>
+                        </defs>
+                        <g>
+                            <path d="M 2 22 L 12 22 Q 22 22 22 12 L 22 2" fill="none" stroke="#000000"
+                                stroke-opacity="0.8" stroke-width="4" stroke-miterlimit="10" pointer-events="stroke" />
+                        </g>
+                    </svg>
+                </div>
+                <div id="bottom-left">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        width="25px" height="25px" viewBox="-0.5 -0.5 25 25" class="ge-export-svg-dark"
+                        content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2024-01-05T11:50:53.509Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; version=&quot;22.1.16&quot; etag=&quot;_dONiFMjpjDE0n6rPZAn&quot; type=&quot;device&quot;&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;-YO9qan98xHfY2sqnPQi&quot;&gt;jVNNU4MwEP013IG02h4Vq16ccaYHzxmyQqYhy4TQFn+9gSSEFHXsoZP3dvftJwkpmuuLom39hgxEkqfsmpCnJM/3xPyNeLB4s7O4UpxZJgvEkX+BI1PH9pxBFzlqRKF5G5MlSgmljjiqFF5it08UcdaWVrAijiUVa/aDM11bdpffB/4VeFX7zNnd3loa6p1dJ11NGV4WFDkkpFCI2r6aawFinJyfi417/sU6F6ZA6v8E5DbgTEXvenN16cE3C5I9jDMzSKI05GOtG2FQZp4Ke8mAOdRphad5JBvDlL06T+Z0NhcoUE3SJJ1+xoItLbkej2E3QlsDsNUWQlvZPCxzYoANaDUYl0tYx9aNuF5swnMKBNX8HMtTdxXVLDdneEduEuepO98NcTrufIk/TC/RYa9KcFHL8d8KbWOhfH8jpKmqQK+EzELosHBrR4fuj4K3Pxfs5MzDKnq0mGmgptPxMJyodQ9fOTl8Aw==&lt;/diagram&gt;&lt;/mxfile&gt;">
+                        <defs>
+                            <style type="text/css">
+                                svg.ge-export-svg-dark &gt;
+
+                                * {
+                                    filter: invert(100%) hue-rotate(180deg);
+                                }
+
+                                &#xa;
+
+                                svg.ge-export-svg-dark image {
+                                    filter: invert(100%) hue-rotate(180deg)
+                                }
+                            </style>
+                        </defs>
+                        <g>
+                            <path d="M 2 22 L 12 22 Q 22 22 22 12 L 22 2" fill="none" stroke="#000000"
+                                stroke-opacity="0.8" stroke-width="4" stroke-miterlimit="10" pointer-events="stroke" />
+                        </g>
+                    </svg>
+                </div>
+                <div id="bottom-right">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+                        width="25px" height="25px" viewBox="-0.5 -0.5 25 25" class="ge-export-svg-dark"
+                        content="&lt;mxfile host=&quot;app.diagrams.net&quot; modified=&quot;2024-01-05T11:50:53.509Z&quot; agent=&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36&quot; version=&quot;22.1.16&quot; etag=&quot;_dONiFMjpjDE0n6rPZAn&quot; type=&quot;device&quot;&gt;&lt;diagram name=&quot;Page-1&quot; id=&quot;-YO9qan98xHfY2sqnPQi&quot;&gt;jVNNU4MwEP013IG02h4Vq16ccaYHzxmyQqYhy4TQFn+9gSSEFHXsoZP3dvftJwkpmuuLom39hgxEkqfsmpCnJM/3xPyNeLB4s7O4UpxZJgvEkX+BI1PH9pxBFzlqRKF5G5MlSgmljjiqFF5it08UcdaWVrAijiUVa/aDM11bdpffB/4VeFX7zNnd3loa6p1dJ11NGV4WFDkkpFCI2r6aawFinJyfi417/sU6F6ZA6v8E5DbgTEXvenN16cE3C5I9jDMzSKI05GOtG2FQZp4Ke8mAOdRphad5JBvDlL06T+Z0NhcoUE3SJJ1+xoItLbkej2E3QlsDsNUWQlvZPCxzYoANaDUYl0tYx9aNuF5swnMKBNX8HMtTdxXVLDdneEduEuepO98NcTrufIk/TC/RYa9KcFHL8d8KbWOhfH8jpKmqQK+EzELosHBrR4fuj4K3Pxfs5MzDKnq0mGmgptPxMJyodQ9fOTl8Aw==&lt;/diagram&gt;&lt;/mxfile&gt;">
+                        <defs>
+                            <style type="text/css">
+                                svg.ge-export-svg-dark &gt;
+
+                                * {
+                                    filter: invert(100%) hue-rotate(180deg);
+                                }
+
+                                &#xa;
+
+                                svg.ge-export-svg-dark image {
+                                    filter: invert(100%) hue-rotate(180deg)
+                                }
+                            </style>
+                        </defs>
+                        <g>
+                            <path d="M 2 22 L 12 22 Q 22 22 22 12 L 22 2" fill="none" stroke="#000000"
+                                stroke-opacity="0.8" stroke-width="4" stroke-miterlimit="10" pointer-events="stroke" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <div class="box-detect">
+                <svg width="174" height="166" viewBox="0 0 174 166" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="11" y="10" width="151" height="146" rx="10" fill="#2137FC" fill-opacity="0.15" />
+                    <path d="M140 10.0849H151.535C157.286 10.0849 161.948 14.3693 161.948 19.6543V30.2548"
+                        stroke="#BEFF03" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M140.393 155.915H151.928C157.679 155.915 162.341 151.631 162.341 146.346V135.745"
+                        stroke="#BEFF03" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M32.9213 10.0849H21.3866C15.6357 10.0849 10.9738 14.3693 10.9738 19.6543V30.2548"
+                        stroke="#BEFF03" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M32.9213 155.915H21.3866C15.6357 155.915 10.9738 151.631 10.9738 146.346V135.745"
+                        stroke="#BEFF03" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+
+            </div>
+            <video id="video" playsinline></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+        </div>
         <div id="result">QR Code Result: <span id="qr-result"></span></div>
     </div>
     <script src="./qr-scanner.js"></script>
 </body>
+
 </html>

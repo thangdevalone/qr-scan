@@ -4,14 +4,18 @@ const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d', { willReadFrequently: true });
 const qrResult = document.getElementById('qr-result');
 
-navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment",width: { ideal: 1280 }, 
-height: { ideal: 720 },  } })
-    .then(function(stream) {
+navigator.mediaDevices.getUserMedia({
+    video: {
+        facingMode: "environment", width: { ideal:  1920 },
+        height: { ideal: 1080  },
+    }
+})
+    .then(function (stream) {
         video.srcObject = stream;
         video.play();
         requestAnimationFrame(scanFrame);
     })
-    .catch(function(error) {
+    .catch(function (error) {
         console.error("Error accessing the camera", error);
     });
 
