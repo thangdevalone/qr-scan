@@ -6,7 +6,7 @@ const qrResult = document.getElementById('qr-result');
 
 navigator.mediaDevices.getUserMedia({
     video: {
-        facingMode: "environment", width: { ideal:  1920 },
+        facingMode: "user", width: { ideal:  1920 },
         height: { ideal: 1080  },
     }
 })
@@ -18,6 +18,10 @@ navigator.mediaDevices.getUserMedia({
     .catch(function (error) {
         console.error("Error accessing the camera", error);
     });
+let topLeft=0
+let topRight=0
+let bottomLeft=0
+let bottomRight=0
 
 function scanFrame() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
@@ -28,10 +32,17 @@ function scanFrame() {
         const code = jsQR(imageData.data, imageData.width, imageData.height);
 
         if (code) {
-            console.log(code)
+            const location = code.location;
+            bottomLeft = location.bottomLeftCorner;
+            bottomRight = location.bottomRightCorner;
+            topLeft = location.topLeftCorner;
+            topRight = location.topRightCorner;
+            const boxDetect = document.querySelector('.box-detect');
+            boxDetect.style.left = `${topLeft.x}px`;
+            boxDetect.style.top = `${topLeft.y}px`;
+            boxDetect.style.width = `${topRight.x - topLeft.x}px`;
+            boxDetect.style.height = `${bottomLeft.y - topLeft.y}px`;
             qrResult.textContent = code.data;
-        } else {
-            qrResult.textContent = 'No QR code detected';
         }
     }
     requestAnimationFrame(scanFrame);
