@@ -5,17 +5,11 @@
     <title>QR Code Scanner</title>
     <script src="./jsQR.js"></script>
     <!-- Include your custom JavaScript file -->
-    <script src="./qrScanner.js"></script>
 </head>
 <body>
     <h1>QR Code Scanner</h1>
-    <video id="video" width="1080" height="1920" style="display:none;"></video>
-    <canvas id="canvas" width="1080" height="1920" style="display:none;"></canvas>
-    <script>
-        // Initialize the QR scanner on page load
-        window.onload = function() {
-            initQRScanner();
-        };
-    </script>
+    <video id="video" width="1080" height="1920" ></video>
+    <canvas id="canvas" width="1080" height="1920"></canvas>
+    <script src="./qrScanner.js"></script>
 </body>
 </html>
