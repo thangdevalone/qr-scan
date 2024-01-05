@@ -18,11 +18,19 @@ body, html {
   width: 70%;
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
-
+  background-color: transparent;
   border-radius: 10px;
   /* Adjust the border-radius value to control the roundness of the corners */
   color: #fff;
   text-align: center;
+}
+.scan .box-detect{
+  position: absolute;
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
 }
 .box-demo #top-left {
   position: absolute;
