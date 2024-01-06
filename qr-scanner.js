@@ -29,8 +29,8 @@ navigator.mediaDevices.getUserMedia({
 
 function scanFrame() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        canvas.height = window.innerHeight;
-        canvas.width = window.innerWidth;
+        canvas.height = canvas.width;
+        canvas.width =  canvas.height;
         function drawLine(begin, end, color) {
             canvas.beginPath();
             canvas.moveTo(begin.x, begin.y);
