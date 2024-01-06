@@ -13,7 +13,8 @@ let bottomRight = 0
 
 navigator.mediaDevices.getUserMedia({
     video: {
-        facingMode: "environment"
+        facingMode: "environment", width: { ideal: 1920 },
+        height: { ideal: 1080 },
     }
 })
     .then(function (stream) {
@@ -28,9 +29,16 @@ navigator.mediaDevices.getUserMedia({
 
 function scanFrame() {
     if (video.readyState === video.HAVE_ENOUGH_DATA) {
-        canvas.height = video.videoHeight;
-        canvas.width = video.videoWidth;
-
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+        function drawLine(begin, end, color) {
+            canvas.beginPath();
+            canvas.moveTo(begin.x, begin.y);
+            canvas.lineTo(end.x, end.y);
+            canvas.lineWidth = 4;
+            canvas.strokeStyle = color;
+            canvas.stroke();
+          }
         ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const code = jsQR(imageData.data, imageData.width, imageData.height);
@@ -43,7 +51,10 @@ function scanFrame() {
             points.push(location.topLeftCorner)
             points.push(location.topRightCorner)
 
-          
+            drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+            drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+            drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+            drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
             alert(code.data)
         }
     }
